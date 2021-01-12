@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Dad Jokes</title>
+
+    <style>
+        body {
+            text-align: center;
+        }
+
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Click the button below to get random dad jokes</h1>
+    <button>Click Me!</button>
+    <ul></ul>
+
+    <!-- -------------------------------------------------------------- -->
+    <!-- -------------------------------------------------------------- -->
+
+    <script>
+        let ul = document.querySelector("ul");
+        let button = document.querySelector("button");
+
+        const getDadJoke = async () => {
+            try {
+                const config = { headers: { Accept: "application/json" } }
+                const res = await axios.get("https://icanhazdadjoke.com/", config);
+                return res.data.joke;
+            } catch (error) {
+                return "NO JOKES AVAILABLE! SORRY :(";
+            }
+            
+        }
+
+        const addNewJoke = async () => {
+            const jokeText = await getDadJoke();
+            const li = document.createElement("li");
+            li.append(jokeText);
+            ul.append(li);
+        }
+
+        button.addEventListener("click", addNewJoke);
+    </script>
+</body>
+
+</html>
